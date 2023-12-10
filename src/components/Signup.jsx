@@ -83,7 +83,7 @@ const SignUp = () => {
         <Modal
           show={result.length > 0}
           onCancel={closeModalHandler}
-          header={"Login Result"}
+          header={"Signup Result"}
           footer={<Button onClick={closeModalHandler}>CLOSE</Button>}
         >
           <div>{result}</div>
