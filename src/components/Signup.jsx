@@ -15,8 +15,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import image2 from "../utils/Saly-43Rocket.svg";
-
 const SignUp = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [result, setResult] = useState("");
@@ -68,7 +66,6 @@ const SignUp = () => {
               "Content-Type": "application/json",
             }
           );
-          console.log(response.message);
           setResult(response.message);
         } catch (err) {
           console.log(err);
@@ -93,12 +90,8 @@ const SignUp = () => {
         </Modal>
       )}
       <div className="flex flex-row justify-evenly">
-        <div className="w-[50%] m-0 left-0">
-          {/* <img src={image1} alt="image1" className="absolute z-0" /> */}
-          <img src={image2} alt="image2" className="absolute" />
-        </div>
         <form
-          className="flex flex-col w-[50%] mt-8"
+          className="flex flex-col w-full max-w-[80%] mt-8"
           onSubmit={formik.handleSubmit}
         >
           <Typography

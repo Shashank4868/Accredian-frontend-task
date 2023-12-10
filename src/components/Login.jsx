@@ -14,7 +14,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import image2 from "../utils/Saly-43Rocket.svg";
 import { NavLink } from "react-router-dom";
 
 const Login = () => {
@@ -57,7 +56,6 @@ const Login = () => {
               "Content-Type": "application/json",
             }
           );
-          console.log(response.message);
           setResult(response.message);
         } catch (err) {
           console.log(err);
@@ -82,12 +80,8 @@ const Login = () => {
         </Modal>
       )}
       <div className="flex flex-row justify-evenly">
-        <div className="w-[50%] m-0 left-0">
-          {/* <img src={image1} alt="image1" className="absolute z-0" /> */}
-          <img src={image2} alt="image2" className="absolute" />
-        </div>
         <form
-          className="flex flex-col w-[50%] mt-8"
+          className="flex flex-col justify-evenly w-full max-w-[90%] mt-8"
           onSubmit={formik.handleSubmit}
         >
           <Typography
