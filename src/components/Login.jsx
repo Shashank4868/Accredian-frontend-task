@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
+import { useHttpClient } from "../hooks/http-hook";
+import LoadingSpinner from "../UIElements/LoadingSpinner";
+import Modal from "../UIElements/Modal";
+import ErrorModal from "../UIElements/ErrorModal";
 
 import { LuLogIn } from "react-icons/lu";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 
 import image2 from "../utils/Saly-43Rocket.svg";
+import { NavLink } from "react-router-dom";
 
 const Login = () => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [result, setResult] = useState("");
+
+  const closeModalHandler = () => {
+    setResult("");
+  };
+
   const formik = useFormik({
     initialValues: {
       userNameOrEmail: "",
@@ -24,16 +36,51 @@ const Login = () => {
         .required("Password is Required")
         .min(8, "Password is too short - should be 8 chars minimum."),
     }),
-    onSubmit: () => {
-      const userName = formik.values.userNameOrEmail;
+    onSubmit: (event) => {
+      // event.preventDefault();
+      const usernameOrEmail = formik.values.userNameOrEmail;
       const password = formik.values.password;
-
       // Make API Call
+      const Login = async () => {
+        try {
+          const formData = new FormData();
+          formData.append("usernameOrEmail", usernameOrEmail);
+          formData.append("password", password);
+          let response = await sendRequest(
+            `http://localhost:3000/`,
+            "POST",
+            JSON.stringify({
+              usernameOrEmail: usernameOrEmail,
+              password: password,
+            }),
+            {
+              "Content-Type": "application/json",
+            }
+          );
+          console.log(response.message);
+          setResult(response.message);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      Login();
     },
   });
 
   return (
     <React.Fragment>
+      {isLoading && <LoadingSpinner asOverlay />}
+      {error && <ErrorModal error={error} onClear={clearError} />}
+      {result.length > 0 && (
+        <Modal
+          show={result.length > 0}
+          onCancel={closeModalHandler}
+          header={"Login Result"}
+          footer={<Button onClick={closeModalHandler}>CLOSE</Button>}
+        >
+          <div>{result}</div>
+        </Modal>
+      )}
       <div className="flex flex-row justify-evenly">
         <div className="w-[50%] m-0 left-0">
           {/* <img src={image1} alt="image1" className="absolute z-0" /> */}
@@ -94,9 +141,12 @@ const Login = () => {
             color="initial"
           >
             Don't have an account?{" "}
-            <Link underline="none" href="/signup">
+            <NavLink
+              style={{ color: "blue", textDecoration: "none" }}
+              to="/signup"
+            >
               Sign up Here
-            </Link>
+            </NavLink>
           </Typography>
         </form>
       </div>

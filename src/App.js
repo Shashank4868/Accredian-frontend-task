@@ -31,7 +31,6 @@ const App = () => {
           accredian
         </Typography>
         <RouterProvider router={router} />
-        {/* <SignUp /> */}
       </Card>
     </Container>
   );
