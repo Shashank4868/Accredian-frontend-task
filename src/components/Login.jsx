@@ -9,6 +9,7 @@ import Modal from "../UIElements/Modal";
 import ErrorModal from "../UIElements/ErrorModal";
 
 import { LuLogIn } from "react-icons/lu";
+import image1 from "../utils/Lock.png";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -80,6 +81,9 @@ const Login = () => {
         </Modal>
       )}
       <div className="flex flex-row justify-evenly">
+        <div className="mt-20 p-4 hidden sm:block">
+          <img src={image1} alt="lock" width={400} />
+        </div>
         <form
           className="flex flex-col justify-evenly w-full max-w-[90%] mt-8"
           onSubmit={formik.handleSubmit}

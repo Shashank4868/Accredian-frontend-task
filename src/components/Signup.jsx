@@ -10,6 +10,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { LuLogIn } from "react-icons/lu";
+import image1 from "../utils/Lock.png";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -90,6 +91,9 @@ const SignUp = () => {
         </Modal>
       )}
       <div className="flex flex-row justify-evenly">
+        <div className="mt-20 p-4 hidden sm:block">
+          <img src={image1} alt="lock" width={400} />
+        </div>
         <form
           className="flex flex-col w-full max-w-[80%] mt-8"
           onSubmit={formik.handleSubmit}
